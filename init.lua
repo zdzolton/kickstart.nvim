@@ -158,8 +158,6 @@ rtp:prepend(lazypath)
 --  To update plugins you can run
 --    :Lazy update
 --
--- See HACK below...
-jdtls_already_ran = false
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
 
@@ -723,11 +721,6 @@ require('lazy').setup({
             require('lspconfig')[server_name].setup(server)
           end,
           jdtls = function()
-            -- HACK: Don't know why this gets called more than once
-            if jdtls_already_ran then
-              return
-            end
-            jdtls_already_ran = true
             require('java').setup {
               -- Your custom jdtls settings goes here
               -- Do not automatically install JDK 17
@@ -1384,7 +1377,14 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(_)
+  -- local output = ""
+  -- for k,v in pairs(_) do
+  --   output = output .. " " .. tostring(k) .. " -> " .. tostring(v) .. " ; "
+  -- end
+  -- print(output)
+  local bufnr = _['buf']
+
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -1438,6 +1438,8 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
+
+vim.api.nvim_create_autocmd("LspAttach", { callback = on_attach })
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
@@ -1502,17 +1504,6 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
-}
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end,
 }
 
 -- [[ Configure nvim-cmp ]]
