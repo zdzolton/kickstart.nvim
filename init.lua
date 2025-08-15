@@ -1402,10 +1402,9 @@ local on_attach = function(_)
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
-  -- HACK: I can't get lsp_document_symbols to work for jdtls for some reason...
-  -- nmap('<leader>ds', function()
-  --   require('telescope.builtin').lsp_document_symbols { ignore_symbols = { 'variable', 'constant' } }
-  -- end, '[D]ocument [S]ymbols')
+  nmap('<leader>ds', function()
+    require('telescope.builtin').lsp_document_symbols { ignore_symbols = { 'variable', 'constant' } }
+  end, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
