@@ -885,26 +885,18 @@ require('lazy').setup({
       notify_on_error = false,
       format_on_save = nil,  -- Do NOT format when saving a buffer
       formatters = {
-          ruff_check_fix = {
-            command = "ruff",
-            args = { "check", "--fix", "--stdin-filename", "$FILENAME", "--silent", "--exit-zero" },
-            stdin = true,
+          isort = {
+            prepend_args = { "-l", "1000000", "--wl", "0", "--sl" }
           },
-          ruff_format = {
-            command = "ruff",
-            args = { "format", "--stdin-filename", "$FILENAME", "--silent" },
-            range_args = function(self, ctx)
-              return {
-                "format", "--stdin-filename", "$FILENAME", "--silent",
-                "--range=" .. ctx.range.start[1] .. "-" .. ctx.range["end"][1]
-              }
-            end,
+          macchiato = {
+            command = "black-macchiato",
+            prepend_args = { "-l", tostring(vim.o.textwidth) },
           },
       },
       formatters_by_ft = {
         lua = { 'stylua' },
         java = { "google-java-format" },
-        python = { "ruff_check_fix", "ruff_format" },
+        python = { "macchiato", "isort" },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
