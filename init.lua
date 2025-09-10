@@ -894,11 +894,18 @@ require('lazy').setup({
               return { "-l", tostring(vim.o.textwidth) }
             end,
           },
+          tidy_xml = {
+            command = "tidy",
+            args = function ()
+              return { "-quiet", "-xml", "--wrap", "120", "--indent", "yes", "--indent-attributes", "yes" }
+            end
+          },
       },
       formatters_by_ft = {
         lua = { 'stylua' },
         java = { "google-java-format" },
         python = { "macchiato", "isort" },
+        xml = { "tidy_xml" },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
