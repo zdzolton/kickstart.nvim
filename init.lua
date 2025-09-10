@@ -881,7 +881,7 @@ require('lazy').setup({
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
-      log_level = vim.log.levels.DEBUG,
+      -- log_level = vim.log.levels.DEBUG,
       notify_on_error = false,
       format_on_save = nil,  -- Do NOT format when saving a buffer
       formatters = {
