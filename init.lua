@@ -854,8 +854,6 @@ require('lazy').setup({
               },
 
             }
-
-            require('lspconfig').jdtls.setup { }
           end,
         },
       }
