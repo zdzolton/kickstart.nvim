@@ -1071,9 +1071,12 @@ require('lazy').setup({
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+
+    dependencies = { "OXY2DEV/markview.nvim" },
+    lazy = false,
     build = ':TSUpdate',
     config = function()
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
