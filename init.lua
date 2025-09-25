@@ -159,7 +159,7 @@ rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
-require('lazy').setup({
+require('lazy').setup {
 
   -- Manipulate surrounding characters
   'tpope/vim-surround',
@@ -862,7 +862,6 @@ require('lazy').setup({
                 },
                 redhat = { telemetry = { enabled = false } },
               },
-
             }
           end,
         },
@@ -891,29 +890,29 @@ require('lazy').setup({
     opts = {
       -- log_level = vim.log.levels.DEBUG,
       notify_on_error = false,
-      format_on_save = nil,  -- Do NOT format when saving a buffer
+      format_on_save = nil, -- Do NOT format when saving a buffer
       formatters = {
-          isort = {
-            prepend_args = { "-l", "1000000", "--wl", "0", "--sl" }
-          },
-          macchiato = {
-            command = "black-macchiato",
-            args = function ()
-              return { "-l", tostring(vim.o.textwidth) }
-            end,
-          },
-          tidy_xml = {
-            command = "tidy",
-            args = function ()
-              return { "-quiet", "-xml", "--wrap", "120", "--indent", "yes", "--indent-attributes", "yes" }
-            end
-          },
+        isort = {
+          prepend_args = { '-l', '1000000', '--wl', '0', '--sl' },
+        },
+        macchiato = {
+          command = 'black-macchiato',
+          args = function()
+            return { '-l', tostring(vim.o.textwidth) }
+          end,
+        },
+        tidy_xml = {
+          command = 'tidy',
+          args = function()
+            return { '-quiet', '-xml', '--wrap', '120', '--indent', 'yes', '--indent-attributes', 'yes' }
+          end,
+        },
       },
       formatters_by_ft = {
         lua = { 'stylua' },
-        java = { "google-java-format" },
-        python = { "macchiato", "isort" },
-        xml = { "tidy_xml" },
+        java = { 'google-java-format' },
+        python = { 'macchiato', 'isort' },
+        xml = { 'tidy_xml' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1083,11 +1082,10 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
-    dependencies = { "OXY2DEV/markview.nvim", "nvim-treesitter/nvim-treesitter-context" },
+    dependencies = { 'OXY2DEV/markview.nvim', 'nvim-treesitter/nvim-treesitter-context' },
     lazy = false,
     build = ':TSUpdate',
     config = function()
-
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
@@ -1190,7 +1188,7 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
-})
+}
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -1200,7 +1198,7 @@ require('lazy').setup({
 vim.o.textwidth = 120
 
 -- Don't automatically insert linebreaks
-vim.opt.formatoptions:remove { "t" }
+vim.opt.formatoptions:remove { 't' }
 
 -- Set highlight on search
 vim.o.hlsearch = true
@@ -1294,35 +1292,36 @@ require('telescope').setup {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
       },
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
-  --
-  -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
-  -- Or use telescope!
-  -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
-  -- you can continue same window with `<space>sr` which resumes last telescope search
-}, {
-  ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
+      --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
+      -- { import = 'custom.plugins' },
+      --
+      -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
+      -- Or use telescope!
+      -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
+      -- you can continue same window with `<space>sr` which resumes last telescope search
+    },
+    {
+      ui = {
+        -- If you are using a Nerd Font: set icons to an empty table which will use the
+        -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+        icons = vim.g.have_nerd_font and {} or {
+          cmd = '⌘',
+          config = '🛠',
+          event = '📅',
+          ft = '📂',
+          init = '⚙',
+          keys = '🗝',
+          plugin = '🔌',
+          runtime = '💻',
+          require = '🌙',
+          source = '📄',
+          start = '🚀',
+          task = '📌',
+          lazy = '💤 ',
+        },
+      },
     },
   },
-}
-}
 }
 
 -- Enable telescope fzf native, if installed
@@ -1347,8 +1346,6 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
-
-
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
@@ -1358,7 +1355,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_)
-
   -- local output = ""
   -- for k,v in pairs(_) do
   --   output = output .. " " .. tostring(k) .. " -> " .. tostring(v) .. " ; "
@@ -1406,9 +1402,9 @@ local on_attach = function(_)
   end, '[W]orkspace [L]ist Folders')
 
   -- Don't show diagnostics inline
-  vim.diagnostic.config({
+  vim.diagnostic.config {
     virtual_text = false,
-  })
+  }
 
   -- Make diagnostics hints more readable with Solarized theme
   vim.cmd 'hi DiagnosticHint guifg=Gray'
@@ -1419,7 +1415,7 @@ local on_attach = function(_)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-vim.api.nvim_create_autocmd("LspAttach", { callback = on_attach })
+vim.api.nvim_create_autocmd('LspAttach', { callback = on_attach })
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
