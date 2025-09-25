@@ -660,6 +660,16 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
+        yamlls = {
+          settings = {
+            yaml = {
+              schemas = {
+                ['https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json'] = { 'docs/api-specs/**/*.yaml' },
+              },
+            },
+          },
+        },
+
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -1378,6 +1388,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_)
+
   -- local output = ""
   -- for k,v in pairs(_) do
   --   output = output .. " " .. tostring(k) .. " -> " .. tostring(v) .. " ; "
@@ -1444,57 +1455,6 @@ vim.api.nvim_create_autocmd("LspAttach", { callback = on_attach })
 -- before setting up the servers.
 require('mason').setup()
 require('mason-lspconfig').setup()
-
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
---
---  If you want to override the default filetypes that your language server will attach to you can
---  define the property 'filetypes' to the map in question.
-local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
-  bashls = {},
-  groovyls = {},
-  intelephense = {},
-  jsonls = {},
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
-  pyright = {},
-  ts_ls = {},
-  yamlls = {
-    yaml = {
-      schemas = {
-        kubernetes = '*.yaml',
-        ['http://json.schemastore.org/github-workflow'] = '.github/workflows/*',
-        ['http://json.schemastore.org/github-action'] = '.github/action.{yml,yaml}',
-        -- ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
-        -- ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
-        -- ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
-        -- ["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
-        -- ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
-        -- ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
-        -- ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
-        -- ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
-        -- ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
-        -- ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
-      },
-    },
-  },
-}
-
-
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
